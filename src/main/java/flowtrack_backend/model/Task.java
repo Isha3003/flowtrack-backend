@@ -1,29 +1,37 @@
 package flowtrack_backend.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "tasks")
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
-    private String description;
+    @Column(nullable = false)
+    private String status;
 
-    private String status; // PENDING / COMPLETED
+    public Task() {}
 
-    @ManyToOne
-    @JoinColumn(name = "assigned_user")
-    private User assignedTo;
+    public Task(String title, String status) {
+        this.title = title;
+        this.status = status;
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    private Project project;
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
+
+    public String getTitle() { return title; }
+
+    public void setTitle(String title) { this.title = title; }
+
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) { this.status = status; }
 }
